@@ -6,6 +6,14 @@
 
 ---
 
+## TL;DR
+
+> **30 秒速读**：把 Ch09-19 的知识组装成完整的 TypeScript 全栈配置——vtsls LSP + Prettier + ESLint + Tailwind + DAP，复制即用。
+> 
+> **如果只记一件事**：每个 spec 文件都用 extend 模式（`opts = function`），不覆盖 LazyVim 默认值。
+
+---
+
 ## 项目目标
 
 为 TypeScript/React/Tailwind CSS 全栈开发配置 LazyVim，实现：
@@ -327,6 +335,17 @@ servers = {
 -- ✅ 正确：用 keys 懒加载
 { "mfussenegger/nvim-dap", keys = { "<leader>db" } }
 ```
+
+## 常见错误
+
+> 概念懂了，实际操作还是会踩坑。
+
+| 错误 | 症状 | 解决 |
+|------|------|------|
+| 不装 prettier 就期望自动格式化 | 保存时代码没格式化 | `npm install -g prettier` 或 `:MasonInstall prettier` |
+| 同时装 vtsls 和 tsserver | 补全和诊断冲突，出现重复提示 | 只用 vtsls（LazyVim 推荐） |
+| `opts = { servers = { vtsls = {...} } }` 覆盖全部 | 覆盖了 LazyVim 默认的 lua_ls、jsonls 等 | 用 `opts = function` + 直接赋值 `opts.servers.vtsls = {...}` |
+| Tailwind 类名没补全 | 打开 TSX 文件没有 class 提示 | 启用 `lang.tailwindcss` Extra 或手动配 tailwindcss LSP |
 
 ---
 

@@ -7,6 +7,14 @@
 
 ---
 
+## TL;DR
+
+> **30 秒速读**：conform.nvim 管格式化（prettier/stylua/black），nvim-lint 管代码检查（eslint/luacheck），两者都是调度器，调用外部工具干活。
+> 
+> **如果只记一件事**：`<leader>cf` 手动格式化，`<leader>uf` 切换自动格式化。工具没装？`:MasonInstall` 一条命令搞定。
+
+---
+
 ## 本章目标
 
 学完本章，你将能够：
@@ -375,6 +383,19 @@ return {
 
 -- ✅ 正确：选一个。LazyVim 默认会处理好这个冲突，不需要你操心。
 ```
+
+---
+
+## 常见错误
+
+> 概念懂了，实际操作还是会踩坑。
+
+| 错误 | 症状 | 解决 |
+|------|------|------|
+| 格式化器没装 | 按 `<leader>cf` 报 "stylua not found" 或无反应 | `:MasonInstall stylua`（或 prettier/black），确认工具在 PATH 里 |
+| 用 `opts = { formatters_by_ft = {...} }` 覆盖 | 只剩你写的格式化器，其他语言全没了 | 改用 `opts = function(_, opts)` + 直接赋值新字段 |
+| 保存时格式化两次 / 代码抖动 | 保存瞬间代码跳动，格式反复变化 | LSP 和 conform 同时格式化同一语言，LazyVim 通常自动处理，检查是否有重复配置 |
+| eslint 报 `no config found` | 保存时 nvim-lint 报 eslint 配置缺失 | 项目根目录需要 `.eslintrc.*` 或 `eslint.config.*`，或全局安装 `npm i -g eslint` |
 
 ---
 

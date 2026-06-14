@@ -7,6 +7,14 @@
 
 ---
 
+## TL;DR
+
+> **30 秒速读**：nvim-cmp 是可插拔的补全引擎，LSP/snippet/path/buffer 四种来源各有分工，Tab 键在补全菜单和 snippet 占位符之间智能切换。
+> 
+> **如果只记一件事**：追加补全来源用 `table.insert(opts.sources, ...)`，用 `opts = { sources = {...} }` 会覆盖掉 LSP 补全。
+
+---
+
 ## 本章目标
 
 学完本章，你将能够：
@@ -410,6 +418,19 @@ end)
 原因：没有 LSP（cmp-nvim-lsp 来源没有数据）
 修复：按第 12 章配好 LSP + Mason
 ```
+
+---
+
+## 常见错误
+
+> 概念懂了，实际操作还是会踩坑。
+
+| 错误 | 症状 | 解决 |
+|------|------|------|
+| 用 `opts = { sources = {...} }` 覆盖来源 | LSP 补全消失，只剩 buffer/path 候选 | 改用 `table.insert(opts.sources, ...)` 追加 |
+| 补全菜单弹出但没有 LSP 项 | 只有 buffer 和 path 来源的结果 | 检查 LSP 是否正常连接（`:LspInfo`），确认 `cmp-nvim-lsp` 已加载 |
+| Tab 键不能跳转 snippet 占位符 | 展开 snippet 后 Tab 只插入制表符 | 确认 LuaSnip 已加载，不要自己写 Tab 映射覆盖 LazyVim 默认逻辑 |
+| 补全菜单太慢 / 卡顿 | 输入时明显延迟 | 减少 buffer 来源的 `max_item_count`，或降低 buffer 来源 priority |
 
 ---
 

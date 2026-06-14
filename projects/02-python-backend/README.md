@@ -6,6 +6,14 @@
 
 ---
 
+## TL;DR
+
+> **30 秒速读**：Python 后端四件套——pyright 类型检查 + black 格式化 + ruff lint + debugpy 调试，配置模式和 TS 项目一样。
+> 
+> **如果只记一件事**：pyright 会自动查找 `.venv` 虚拟环境，但你得先激活它或把 `.venv` 放在项目根目录。
+
+---
+
 ## 项目目标
 
 为 Python 后端开发配置 LazyVim，实现：
@@ -305,6 +313,17 @@ return {
 -- ✅ 正确：用 keys 懒加载
 { "mfussenegger/nvim-dap", keys = { "<leader>db" } }
 ```
+
+## 常见错误
+
+> 概念懂了，实际操作还是会踩坑。
+
+| 错误 | 症状 | 解决 |
+|------|------|------|
+| pyright 报 "cannot import module" | 类型检查找不到第三方库 | 确认 `.venv` 在项目根目录，或配 `pyrightconfig.json` 的 `venvPath` |
+| 用 pylint 而不是 ruff | 保存文件等 3 秒才有 lint 结果 | 换 ruff（Rust 实现，快 10-100 倍） |
+| 同时装 pyright 和 pylsp | 补全和诊断冲突 | 只用 pyright |
+| debugpy 断点不生效 | 设了断点但程序直接跑完 | 确认用 `<leader>dc` 启动调试，且 `:Mason` 里 debugpy 已安装 |
 
 ---
 

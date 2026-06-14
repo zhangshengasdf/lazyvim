@@ -7,6 +7,12 @@
 
 ---
 
+## TL;DR
+
+> **30 秒速读**：`lua/config/` 放选项/快捷键/自动命令（自动 source），`lua/plugins/` 放插件 spec（必须 return table），两者都用 `opts = function` 扩展默认配置。
+> 
+> **如果只记一件事**：扩展列表型配置用 `opts = function(_, opts) vim.list_extend(opts.X, {...}) end`，不要直接覆盖。
+
 ## 本章目标
 
 学完本章，你将能够：
@@ -463,6 +469,20 @@ lazy-lock.json
 ```
 
 **后果**：换机器时装到最新版插件，可能引入 breaking change，配置突然不能用。
+
+---
+
+## 常见错误
+
+> 概念懂了，实际操作还是会踩坑。这些是 Vim/Neovim 新手最常犯的错误。
+
+| 错误 | 症状 | 解决 |
+|------|------|------|
+| `opts = { ensure_installed = { "lua" } }` 覆盖默认列表 | Treesitter 只剩你写的几种语言，其他语言高亮没了 | 用 `opts = function(_, opts) vim.list_extend(opts.ensure_installed, {...}) end` 扩展 |
+| `lua/plugins/` 文件没 return table | lazy.nvim 报错：spec 必须是 table | 每个文件必须 `return { spec }` 或 `return { spec1, spec2 }` |
+| 在 `init.lua` 里手动 `require("config.options")` | 重复加载或加载顺序出错 | LazyVim 自动 source `lua/config/`，不需要手动 require |
+| 用 `vim.keymap.set` 时忘了写 `desc` | which-key 里只显示按键，没有功能描述 | 每个 keymap 都加 `{ desc = "说明" }`，让 which-key 能显示 |
+| 改了 `lazy-lock.json` 但没 commit | 换机器后插件版本不一致，行为不同 | commit `lazy-lock.json`，和 `package-lock.json` 一个道理 |
 
 ---
 

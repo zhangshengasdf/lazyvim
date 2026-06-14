@@ -7,6 +7,14 @@
 
 ---
 
+## TL;DR
+
+> **30 秒速读**：LazyVim 用 `<Space>` 做 Leader 键，按 `f`(find)、`s`(search)、`b`(buffer)、`g`(git)、`c`(code)、`x`(extra) 六大前缀分类，`<S-h>`/`<S-l>` 切 buffer，`<C-h/j/k/l>` 切窗口。
+> 
+> **如果只记一件事**：注册自定义 Leader 快捷键时必须带 `desc`，否则 which-key 菜单里看不到它——没 desc 的快捷键在 LazyVim 里等于"隐形"。
+
+---
+
 ## 本章目标
 
 学完本章，你将能够：
@@ -376,6 +384,19 @@ Leader 键体系的设计是**可推导的**——你不需要死记，只需要
 - `b` = buffer
 
 需要什么功能时，先想它属于哪个分类，再试第一字母。which-key 会告诉你剩下按什么。
+
+---
+
+## 常见错误
+
+> 概念懂了，实际操作还是会踩坑。
+
+| 错误 | 症状 | 解决 |
+|------|------|------|
+| 注册 Leader 快捷键时不写 `desc` | which-key 菜单里只看到 `<leader>ff`，不知道按了干什么 | `vim.keymap.set` 的 opts 表里加 `desc = "功能说明"` |
+| 在 `options.lua` 之前注册 `<leader>` 快捷键 | 快捷键绑定到了 `\` 而不是空格（`\` 是 Vim 默认 leader） | 确保 `vim.g.mapleader = " "` 在所有 keymap 注册之前执行 |
+| 用 `vim.api.nvim_set_keymap` 注册快捷键 | 不支持 Lua function 作为 rhs，`desc` 选项被忽略 | 统一用 `vim.keymap.set`，它支持 function、desc、silent |
+| 背了 100 个快捷键却不知道分类逻辑 | 用的时候想不起来按什么，又去查文档 | 理解 `f`/`s`/`b`/`g`/`c`/`x` 六大前缀，需要时先想分类再试首字母 |
 
 ---
 

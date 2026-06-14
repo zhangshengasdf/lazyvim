@@ -8,6 +8,14 @@
 
 ---
 
+## TL;DR
+
+> **30 秒速读**：性能优化三板斧——禁用不用的 provider、禁用内置插件、懒加载降级（event → ft/keys），目标启动 < 50ms。
+> 
+> **如果只记一件事**：先用 `:Lazy profile` 记录基准线，再优化，对比数据。没有基准线的优化是瞎猜。
+
+---
+
 ## 本章目标
 
 学完本章，你将能够：
@@ -371,6 +379,17 @@ vim.opt.timeoutlen = 300
 -- ❌ 坏：50 个插件全部 lazy = false，启动 500ms
 -- ✅ 正确：只给配色和 UI 框架加 lazy = false，其他用 event/ft/keys/cmd
 ```
+
+## 常见错误
+
+> 概念懂了，实际操作还是会踩坑。
+
+| 错误 | 症状 | 解决 |
+|------|------|------|
+| 不记录基准线就优化 | 改了半天不知道有没有效果 | `nvim --startuptime /tmp/startup.log -c 'qa!'` 先量再改 |
+| `timeoutlen` 设太低（50ms） | 按键序列来不及完成（如 `ysiw)`） | 设 200-300ms |
+| 盲目禁用 matchparen | 括号匹配消失 | 先装 mini.pairs 或 nvim-autopairs，再禁用 |
+| 给所有插件加 `lazy = false` | 启动 500ms+ | 只给配色方案加 `lazy = false`，其他用 ft/keys/cmd |
 
 ---
 

@@ -7,6 +7,14 @@
 
 ---
 
+## TL;DR
+
+> **30 秒速读**：lazy.nvim 的 spec 格式决定插件何时加载、如何配置，`event`/`ft`/`keys`/`cmd` 四种懒加载策略按场景选择，扩展列表字段必须用 `opts = function` 而非 `opts = table`。
+> 
+> **如果只记一件事**：扩展 LazyVim 默认配置时，永远用 `opts = function(_, opts) vim.list_extend(opts.X, {...}) end`——用 `opts = {...}` 会把默认值全部覆盖掉。
+
+---
+
 ## 本章目标
 
 学完本章，你将能够：
@@ -437,6 +445,19 @@ lazy-lock.json
 
 # ✅ 正确：commit 它
 ```
+
+---
+
+## 常见错误
+
+> 概念懂了，实际操作还是会踩坑。
+
+| 错误 | 症状 | 解决 |
+|------|------|------|
+| `opts = { ensure_installed = {...} }` 覆盖列表字段 | treesitter 解析器只剩你加的那几个，默认的 bash/c/css/html 全丢 | 改成 `opts = function(_, opts) vim.list_extend(opts.ensure_installed, {...}) end` |
+| `lazy-lock.json` 没提交到 Git | 换机器 `:Lazy sync` 后插件版本不一致，出现莫名 bug | 把 `lazy-lock.json` 加入版本控制，不要 gitignore |
+| 在 `init` 函数里 `require` 插件本身 | 启动报错 `module not found`，因为 `init` 在插件加载前执行 | 改用 `opts` 或 `config`（它们在插件加载后才执行） |
+| 所有插件都设 `lazy = false` | Neovim 启动 2 秒+，`Lazy profile` 显示全量加载 | 只给配色/UI 框架不设懒加载，其余用 `event`/`ft`/`keys`/`cmd` |
 
 ---
 

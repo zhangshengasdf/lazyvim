@@ -8,6 +8,14 @@
 
 ---
 
+## TL;DR
+
+> **30 秒速读**：Treesitter 用语法树替代正则做高亮，让 Neovim 精确理解代码结构，配合增量选择和文本对象实现精确代码操作。
+> 
+> **如果只记一件事**：永远用 `opts = function(_, opts) vim.list_extend(...)` 扩展 `ensure_installed`，用 `opts = {}` 会覆盖默认解析器。
+
+---
+
 ## 本章目标
 
 学完本章，你将能够：
@@ -517,6 +525,19 @@ opts = function(_, opts)
   }
 end
 ```
+
+---
+
+## 常见错误
+
+> 概念懂了，实际操作还是会踩坑。
+
+| 错误 | 症状 | 解决 |
+|------|------|------|
+| 用 `opts = {}` 覆盖 ensure_installed | 默认解析器全没了，高亮大面积失效 | 改成 `opts = function(_, opts) vim.list_extend(...)` |
+| 新装的文件类型没有高亮 | 打开 .rs/.go 等文件无语法高亮 | `:TSInstall <lang>` 或加入 `ensure_installed` 列表 |
+| Treesitter 和正则高亮冲突 | 同一行出现两套颜色，闪烁 | 设置 `additional_vim_regex_highlighting = false` |
+| 增量选择 `gn` 按了没反应 | 按 gn 只进 visual 模式，不扩大选区 | 确认 treesitter 插件已加载，检查 `incremental_selection.enable = true` |
 
 ---
 

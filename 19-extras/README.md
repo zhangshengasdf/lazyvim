@@ -7,6 +7,14 @@
 
 ---
 
+## TL;DR
+
+> **30 秒速读**：Extras 是 LazyVim 预打包的插件 spec 集合，一行 `import` 启用整套语言支持或 AI 集成。
+> 
+> **如果只记一件事**：用 `:LazyExtras` 启用功能，不要手动复制 Extra 内容到自己的配置。
+
+---
+
 ## 本章目标
 
 学完本章，你将能够：
@@ -432,6 +440,17 @@ return {
     opts = function(_, opts) vim.list_extend(opts.ensure_installed, { "zig" }) end },
 }
 ```
+
+## 常见错误
+
+> 概念懂了，实际操作还是会踩坑。
+
+| 错误 | 症状 | 解决 |
+|------|------|------|
+| 同时启用 Copilot + Codeium | 两个 AI 补全互相干扰，Tab 行为异常 | 只启用一个 AI Extra |
+| 复制 Extra 内容到自己的 plugins/ | 升级 LazyVim 后配置不同步 | 直接 `import = "lazyvim.plugins.extras.lang.xxx"` |
+| Extra 里用 `opts = {...}` 覆盖列表 | ensure_installed 被整体替换 | 用 `opts = function` + `vim.list_extend`（和普通 spec 一样的铁律） |
+| 启用 Extra 后不检查 Mason | LSP/格式化工具没装上 | 运行 `:Mason` 确认工具已安装 |
 
 ---
 

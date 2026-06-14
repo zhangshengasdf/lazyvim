@@ -6,6 +6,12 @@
 
 ---
 
+## TL;DR
+
+> **30 秒速读**：LazyVim 是 Neovim 配置发行版，装完就有 LSP 补全、Telescope 搜索、文件树；配置写在 `lua/config/`（选项）和 `lua/plugins/`（插件 spec）。
+> 
+> **如果只记一件事**：装之前先 `mv ~/.config/nvim{,.bak}` 备份旧配置，不备份就装会出大问题。
+
 ## 本章目标
 
 学完本章，你将能够：
@@ -347,6 +353,20 @@ LazyVim 的默认值很好，但**不学原理就改配置** = 等着踩坑。
 
 > ✅ **正确姿势**：装完先用一个月（熟悉默认行为），再按本教程第 5-6 章学配置目录，
 > 第 7-20 章逐个理解插件。**急不来。**
+
+---
+
+## 常见错误
+
+> 概念懂了，实际操作还是会踩坑。这些是 Vim/Neovim 新手最常犯的错误。
+
+| 错误 | 症状 | 解决 |
+|------|------|------|
+| 不备份旧配置直接装 LazyVim | 旧插件和新插件冲突，启动报一堆错 | 先 `mv ~/.config/nvim{,.bak}` 再装，四个目录都要备份 |
+| 在 `lua/plugins/` 里写 `vim.opt.number = true` | 启动报错，提示 spec 不是 table | 选项放 `lua/config/options.lua`，`lua/plugins/` 必须 `return { spec }` |
+| 首次启动卡住不动或报网络错误 | 插件下载超时，界面卡在 loading | 设 git 代理或用 GitHub 镜像，耐心等几分钟 |
+| 手动 clone lazy.nvim 到 lazy/ 目录 | lazy.nvim 升级时不跟着更新，版本不兼容 | 让 `init.lua` 的 bootstrap 逻辑自动管理，不要手动 clone |
+| 装完 LazyVim 改了配置但没生效 | `:Lazy sync` 后配置还是默认的 | 检查是否改对了目录：选项放 `config/`，插件 spec 放 `plugins/` |
 
 ---
 

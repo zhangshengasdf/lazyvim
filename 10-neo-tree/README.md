@@ -7,6 +7,14 @@
 
 ---
 
+## TL;DR
+
+> **30 秒速读**：`<leader>e` 切换文件树侧边栏，`a`/`d`/`r` 在树里直接创建、删除、重命名文件，bufferline 在顶部管理标签页，snacks.nvim dashboard 是启动页。Neo-tree 用 `cmd + keys` 双懒加载。
+> 
+> **如果只记一件事**：Neo-tree 删除文件后 buffer 不会自动关闭，记得用 `<leader>bd` 关掉"孤儿" buffer，否则保存时报错。
+
+---
+
 ## 本章目标
 
 学完本章，你将能够：
@@ -324,6 +332,19 @@ keys = { { "<leader>e", "<cmd>Neotree toggle<CR>", desc = "文件管理器" } }
 #
 # 各司其职，不要混用。
 ```
+
+---
+
+## 常见错误
+
+> 概念懂了，实际操作还是会踩坑。
+
+| 错误 | 症状 | 解决 |
+|------|------|------|
+| 用 `opts = {...}` 覆盖 filesystem 配置 | 隐藏文件过滤、follow_current_file 等默认行为全丢 | 改成 `opts = function(_, opts) opts.filesystem = vim.tbl_deep_extend("force", opts.filesystem or {}, {...}) end` |
+| Neo-tree 里删了文件没关 buffer | buffer 变成"孤儿"，保存时 `E212: Can't open file` | 用 `<leader>bd` 关闭孤儿 buffer，或用 `:bwipeout` |
+| 用 Neo-tree 的 `/` 搜索替代 Telescope | 只能过滤当前目录的文件，不会递归搜子目录内容 | 文件名搜索用 `<leader>ff`，内容搜索用 `<leader>sg`，浏览目录用 `<leader>e` |
+| 同时启用 Neo-tree 和 snacks.explorer | 两个文件浏览器冲突，行为不可预测 | 二选一：LazyVim 默认用 Neo-tree，想换就在 Extras 里启用 snacks.explorer（会自动禁用 Neo-tree） |
 
 ---
 

@@ -7,6 +7,14 @@
 
 ---
 
+## TL;DR
+
+> **30 秒速读**：按下 `<Space>` 等 300ms，which-key 弹出所有快捷键菜单；按前缀键看菜单选操作，重复几次自然记住。用 `wk.add()` 只加分组标签，快捷键还是用 `vim.keymap.set` 注册。
+> 
+> **如果只记一件事**：`desc` 字段是 which-key 和 `vim.keymap.set` 之间的桥梁——不写 desc 的快捷键在菜单里是"隐形"的，你永远不会发现它们。
+
+---
+
 ## 本章目标
 
 学完本章，你将能够：
@@ -339,6 +347,19 @@ vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>")
 -- ✅ 正确：带 desc
 vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "查找文件" })
 ```
+
+---
+
+## 常见错误
+
+> 概念懂了，实际操作还是会踩坑。
+
+| 错误 | 症状 | 解决 |
+|------|------|------|
+| 设 `delay = 0` | 每次按 `<Space>` 立刻弹菜单，正常打字也被干扰 | 保持默认 300ms，快速按键不触发，停下来想时才弹 |
+| 只用 `wk.add()` 注册快捷键 | 禁用或卸载 which-key 后，所有快捷键全部失效 | 快捷键用 `vim.keymap.set` 注册，`wk.add()` 只加分组标签 |
+| 注册了分组标签但没有对应快捷键 | 菜单出现空的 `+终端` 目录，里面什么都没有 | 先注册 `<leader>tt` 等快捷键，再加 `wk.add({ { "<leader>t", group = "终端" } })` |
+| 忘记给 `vim.keymap.set` 加 `desc` | 快捷键能用，但 which-key 菜单里找不到它 | 每个 `vim.keymap.set` 都加 `{ desc = "说明" }` |
 
 ---
 

@@ -8,6 +8,14 @@
 
 ---
 
+## TL;DR
+
+> **30 秒速读**：`vim.keymap.set` 是快捷键的核心 API，`nvim_create_autocmd` 是自动命令的核心 API，两者配合 `augroup` 管理生命周期。
+> 
+> **如果只记一件事**：永远给快捷键写 `desc`，自动命令用 `augroup` + `clear = true` 避免重复注册。
+
+---
+
 ## 本章目标
 
 学完本章，你将能够：
@@ -550,6 +558,17 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   callback = function() vim.cmd("%s/\\s\\+$//e") end,
 })
 ```
+
+## 常见错误
+
+> 概念懂了，实际操作还是会踩坑。
+
+| 错误 | 症状 | 解决 |
+|------|------|------|
+| 快捷键不写 desc | which-key 只显示按键不显示功能 | 加 `{ desc = "..." }` 作为第四个参数 |
+| 在顶层 require 插件 API | Neovim 启动报错 "module not found" | 用 function 形式：`function() require("telescope.builtin").find_files() end` |
+| 不用 augroup 管理 autocmd | 每次 `:source` 配置后 autocmd 重复执行 | `vim.api.nvim_create_augroup("X", { clear = true })` |
+| 用了 `nvim_set_keymap` 或 `safe_keymap_set` | 代码能跑但不规范 | 统一用 `vim.keymap.set`（Neovim 原生 API） |
 
 ---
 

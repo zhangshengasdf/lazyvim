@@ -8,6 +8,14 @@
 
 ---
 
+## TL;DR
+
+> **30 秒速读**：LSP 让 Neovim 从"看文本"升级到"懂代码"，Mason 一条命令装好语言服务器，`gd`/`gr`/`K` 是你最常用的三个快捷键。
+> 
+> **如果只记一件事**：在 `servers` 里声明你要的语言服务器，Mason 自动安装，lspconfig 自动配置，你只管用。
+
+---
+
 ## 本章目标
 
 学完本章，你将能够：
@@ -498,6 +506,19 @@ servers = {
   pyright = {},  -- 只用 pyright
 }
 ```
+
+---
+
+## 常见错误
+
+> 概念懂了，实际操作还是会踩坑。
+
+| 错误 | 症状 | 解决 |
+|------|------|------|
+| 没在 `servers` 里声明语言服务器 | `gd`/`K` 没反应，`:LspInfo` 显示 0 个 client | 在 `lua/plugins/lsp.lua` 的 `servers` 里加上 `lua_ls = {}`、`pyright = {}` 等 |
+| Mason 装了服务器但 LSP 没启动 | `:Mason` 显示已安装，但 `:LspInfo` 无连接 | 检查 `mason-lspconfig` 是否自动配置，或手动 `:LspStart` |
+| pyright 报 `undefined variable` 误报 | 标准库函数被标红 | 确认项目根目录有 `pyrightconfig.json` 或 `pyproject.toml`，设置 `python.analysis.typeCheckingMode` |
+| 打开文件后 LSP 延迟很久才启动 | 前几秒没有补全和诊断 | 大项目 pyright 分析慢属正常，可设 `diagnosticMode = "openFiles"` 减少范围 |
 
 ---
 

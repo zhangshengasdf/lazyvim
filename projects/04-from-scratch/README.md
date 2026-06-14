@@ -8,6 +8,14 @@
 
 ---
 
+## TL;DR
+
+> **30 秒速读**：从零搭建 Neovim 配置——手写 lazy.nvim bootstrap、Telescope、Treesitter、LSP、补全、Git，理解 LazyVim 帮你省了什么。
+> 
+> **如果只记一件事**：lazy.nvim bootstrap 只有 4 步（确定路径、git clone、rtp:prepend、lazy.setup），不是魔法。
+
+---
+
 ## 项目目标
 
 完成本项目后，你将：
@@ -246,6 +254,17 @@ vim.api.nvim_set_keymap("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { no
 -- ✅ 正确：新 API，有 desc 字段
 vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "查找文件" })
 ```
+
+## 常见错误
+
+> 概念懂了，实际操作还是会踩坑。
+
+| 错误 | 症状 | 解决 |
+|------|------|------|
+| 忘记 bootstrap 的 `fs_stat` 检查 | 每次启动都重新克隆 lazy.nvim | 加 `if not vim.loop.fs_stat(lazypath) then` 判断 |
+| `import = "lazyvim.plugins"` | 加载了 LazyVim 全部默认配置，不是从零开始 | 只写 `{ import = "plugins" }` |
+| 照搬 LazyVim 的 `opts_extend` 模式 | 配置不生效（没有 LazyVim 的合并逻辑） | 从零配置用 `config = function() require("xxx").setup({}) end` |
+| 用了 `nvim_set_keymap` | 代码能跑但不规范 | 统一用 `vim.keymap.set`（有 desc 字段） |
 
 ---
 

@@ -7,6 +7,14 @@
 
 ---
 
+## TL;DR
+
+> **30 秒速读**：gitsigns 在行号栏标记改动行（绿/蓝/红），`<leader>ghs` 暂存 hunk，`<leader>gg` 打开 LazyGit 处理复杂 Git 操作。
+> 
+> **如果只记一件事**：hunk 级操作用 gitsigns（`<leader>gh`），文件/分支/rebase 操作用 LazyGit（`<leader>gg`），两者互补。
+
+---
+
 ## 本章目标
 
 学完本章，你将能够：
@@ -328,6 +336,19 @@ opts = function(_, opts)
   })
 end
 ```
+
+---
+
+## 常见错误
+
+> 概念懂了，实际操作还是会踩坑。
+
+| 错误 | 症状 | 解决 |
+|------|------|------|
+| 打开 Git 仓库文件但行号栏无标记 | 没有绿色/蓝色/红色标记 | 检查 gitsigns 是否加载（`:Lazy` 看状态），确认文件在 Git 仓库内 |
+| `<leader>gg` 打不开 LazyGit | 按快捷键没反应或报错 | 确认 `lazygit` 已安装（`which lazygit`），`:MasonInstall` 不管它，需系统安装 |
+| `opts = { signs = {...} }` 覆盖了默认配置 | 只有 add 标记，change/delete 标记丢失 | 改用 `opts = function(_, opts) vim.tbl_deep_extend(...)` extend |
+| gitsigns 用 `cmd` 懒加载 | 插件永远不加载，行号栏无标记 | gitsigns 没有用户命令，必须用 `event = "BufReadPost"` 加载 |
 
 ---
 

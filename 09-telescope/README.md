@@ -7,6 +7,14 @@
 
 ---
 
+## TL;DR
+
+> **30 秒速读**：`<leader>ff` 搜文件名、`<leader>sg` 搜文件内容、`<leader>fb` 切 buffer、`<leader>fr` 最近文件、`<leader>ss` LSP 符号——五个键覆盖 90% 搜索场景。Telescope 用 `keys` 懒加载，按键才加载。
+> 
+> **如果只记一件事**：自定义 Telescope 配置时用 `opts = function(_, opts) ... end` 扩展默认值，用 `opts = {...}` 会把 LazyVim 的布局和 picker 设置全部覆盖。
+
+---
+
 ## 本章目标
 
 学完本章，你将能够：
@@ -350,6 +358,19 @@ telescope.setup({})
 # macOS: brew install ripgrep
 # Ubuntu: sudo apt install ripgrep
 ```
+
+---
+
+## 常见错误
+
+> 概念懂了，实际操作还是会踩坑。
+
+| 错误 | 症状 | 解决 |
+|------|------|------|
+| 用 `opts = {...}` 覆盖 Telescope defaults | 布局变成默认样式，LazyVim 的 horizontal 策略丢失 | 改成 `opts = function(_, opts) opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {...}) end` |
+| 没装 ripgrep 就按 `<leader>sg` | live_grep 报错 `rg: command not found` | macOS: `brew install ripgrep`；Ubuntu: `sudo apt install ripgrep` |
+| 用 `event = "BufReadPost"` 替代 `keys` 加载 Telescope | 每次打开文件都加载 Telescope，启动时间增加 15ms+ | 改回 `keys = { "<leader>ff", "<leader>sg" }`，按键才加载 |
+| 手动 `require("telescope")` 绕过 lazy.nvim | 配置被 lazy.nvim 的 spec 覆盖，你的修改不生效 | 让 lazy.nvim 管理加载，通过 `opts` 或 `config` 传配置 |
 
 ---
 
