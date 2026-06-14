@@ -203,20 +203,20 @@ ft = { "go", "rust", "python" }  -- 打开 Go/Rust/Python 文件时加载
 
 ## `:Lazy` 命令全家桶
 
-| 命令 | 作用 | 常用程度 |
-|------|------|----------|
-| `:Lazy` | 打开 lazy.nvim UI 面板（查看所有插件状态） | ★★★ |
-| `:Lazy install` | 安装 lazy-lock.json 里锁定但本地没装的插件 | ★★★ |
-| `:Lazy clean` | 删除本地有但 spec 没引用的插件 | ★★☆ |
-| `:Lazy update` | 更新所有插件到最新版本（更新 lazy-lock.json） | ★★★ |
-| `:Lazy sync` | install + clean + update 三合一 | ★★★ |
-| `:Lazy restore` | 还原所有插件到 lazy-lock.json 记录的版本 | ★★☆ |
-| `:Lazy log` | 查看插件更新日志（git log） | ★★☆ |
-| `:Lazy profile` | 启动性能分析器（查看每个插件加载耗时） | ★★☆ |
-| `:Lazy debug` | 启用调试模式（查看加载详情） | ★☆☆ |
-| `:Lazy load <plugin>` | 手动加载某个懒加载插件 | ★☆☆ |
-| `:Lazy health` | 运行 lazy.nvim 健康检查 | ★★★ |
-| `:Lazy extras` | （LazyVim 扩展）查看/启用 Extras | ★★☆ |
+| 命令 | 作用 | 频率 |
+|------|------|------|
+| `:Lazy` | 打开 lazy.nvim UI 面板（查看所有插件状态） | 高 |
+| `:Lazy install` | 安装 lazy-lock.json 里锁定但本地没装的插件 | 高 |
+| `:Lazy clean` | 删除本地有但 spec 没引用的插件 | 中 |
+| `:Lazy update` | 更新所有插件到最新版本（更新 lazy-lock.json） | 高 |
+| `:Lazy sync` | install + clean + update 三合一 | 高 |
+| `:Lazy restore` | 还原所有插件到 lazy-lock.json 记录的版本 | 中 |
+| `:Lazy log` | 查看插件更新日志（git log） | 中 |
+| `:Lazy profile` | 启动性能分析器（查看每个插件加载耗时） | 中 |
+| `:Lazy debug` | 启用调试模式（查看加载详情） | 低 |
+| `:Lazy load <plugin>` | 手动加载某个懒加载插件 | 低 |
+| `:Lazy health` | 运行 lazy.nvim 健康检查 | 高 |
+| `:Lazy extras` | （LazyVim 扩展）查看/启用 Extras | 中 |
 
 ### 最常用的三个命令
 

@@ -154,24 +154,13 @@ which-key 不仅显示单个快捷键的 desc，还支持**分组**——让 `<l
 ### 分组注册方式
 
 ```lua
--- 方式 1：直接注册分组（推荐）
+-- 方式 1：直接注册分组（推荐，不需要 which-key 依赖）
 vim.keymap.set("n", "<leader>f", "", { desc = "+查找" })
 vim.keymap.set("n", "<leader>g", "", { desc = "+Git" })
 vim.keymap.set("n", "<leader>d", "", { desc = "+调试" })
-
--- 方式 2：用 which-key 的 register API（如果 which-key 已加载）
-local ok, wk = pcall(require, "which-key")
-if ok then
-  wk.register({
-    ["<leader>f"] = { name = "+查找" },
-    ["<leader>g"] = { name = "+Git" },
-    ["<leader>d"] = { name = "+调试" },
-  })
-end
 ```
 
-**方式 1 更简单**——注册一个空的 keymap 带 desc，which-key 会自动识别为分组。
-`+` 前缀是 which-key 的约定，表示这是一个分组名。
+注册一个空的 keymap 带 `+` 前缀 desc，which-key 会自动识别为分组。
 
 ### LazyVim 默认分组
 
@@ -410,18 +399,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- ============================================================================
--- 6. 保存前自动格式化（如果 LSP 可用）
--- ============================================================================
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-  group = augroup,
-  pattern = { "*.lua", "*.py", "*.js", "*.ts", "*.go", "*.rs" },
-  desc = "保存前自动格式化",
-  callback = function()
-    vim.lsp.buf.format({ async = false })
-  end,
-})
 ```
 
 ### vim.api.nvim_create_augroup
