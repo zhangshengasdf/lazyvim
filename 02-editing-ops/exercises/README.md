@@ -190,3 +190,25 @@ def calculate_total(items):
 - 普通编辑器约 30-50 次按键（鼠标定位、选中、删除、输入，重复多次）；Vim 用本章技巧约 15-20 次。
 - 第 1、3、4 步用了文本对象（`ciw`）；第 2 步用了搜索替换（`:%s`）；第 5 步用了行删除（`dd`）。
   这就是 Vim 的编辑效率：文本对象 + 搜索替换覆盖大部分日常编辑。
+
+---
+
+## 如何使用本章代码
+
+本章的 `lua/init.lua` 配置了搜索相关选项（incsearch、hlsearch、smartcase、ignorecase），
+让搜索体验更好。建议加载它再做练习：
+
+```bash
+# 用本章配置启动 Neovim 练习文本对象和搜索替换
+nvim -u lazyvim/02-editing-ops/lua/init.lua sample.js
+
+# 验证搜索选项已生效
+cd lazyvim/02-editing-ops
+nvim --headless -u lua/init.lua \
+  -c "lua print('incsearch=' .. vim.o.incsearch)" \
+  -c "lua print('smartcase=' .. vim.o.smartcase)" \
+  -c 'qa!'
+# 预期：incsearch=true  smartcase=true
+```
+
+做完所有练习后，进入 [第03章 Neovim 基础与 init.lua](../03-neovim-basics/)。

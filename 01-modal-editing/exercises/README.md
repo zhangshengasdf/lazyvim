@@ -170,3 +170,22 @@ nvim -u lazyvim/01-modal-editing/lua/init.lua practice.txt
 
 - `:e file` 把当前窗口**切换**到新文件（原文件留在缓冲区，可 `:b N` 切回）；`:r file` 把文件内容**合并**到当前缓冲区。
 - `:r !ls` 把目录列表插入；`:r !cat /etc/hostname` 插主机名；`:r !git log --oneline -5` 插最近 5 条提交。
+
+---
+
+## 如何使用本章代码
+
+本章的重点是**动手练 Vim 命令**，lua/ 目录只包含基础选项（行号、高亮搜索、缩进），没有插件。
+配置本身很简单，但建议先加载它再做练习，体验和裸 Neovim 的区别：
+
+```bash
+# 用本章配置启动 Neovim，然后在里面做上面的练习
+nvim -u lazyvim/01-modal-editing/lua/init.lua somefile.txt
+
+# 验证 init.lua 能正常加载（headless 模式）
+cd lazyvim/01-modal-editing
+nvim --headless -u lua/init.lua -c 'qa!'
+# 预期：退出码 0，无报错
+```
+
+做完所有练习后，进入 [第02章 编辑操作与文本对象](../02-editing-ops/)。

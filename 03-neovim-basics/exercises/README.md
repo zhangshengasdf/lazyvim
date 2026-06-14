@@ -222,3 +222,33 @@ nvim --headless -u /tmp/nvim-test/init.lua \
   实际上关键是：runtimepath 默认包含 `~/.config/nvim/`，所以部署到那里 require 就能用。
 - 因为 `~/.config/nvim/` 是 Neovim 的标准配置目录，默认在 runtimepath 里，
   它下面的 `lua/` 自然能被 `require` 找到（遵循 Lua 模块查找规则：`lua/xxx/yyy.lua` 对应 `require("xxx.yyy")`）。
+
+---
+
+## 如何使用本章代码
+
+本章的 `lua/` 目录包含完整的初学者配置：`init.lua`（一体化版本）和 `lua/config/`（拆分版本）。
+建议用一体化版本做练习，拆分版本供参考部署：
+
+```bash
+# 用本章配置启动 Neovim，练习分屏、缓冲区、标签页
+nvim -u lazyvim/03-neovim-basics/lua/init.lua
+
+# 验证 init.lua 加载和关键选项
+cd lazyvim/03-neovim-basics
+nvim --headless -u lua/init.lua \
+  -c "lua print('number=' .. tostring(vim.o.number))" \
+  -c "lua print('tabstop=' .. vim.o.tabstop)" \
+  -c "lua print('hidden=' .. tostring(vim.o.hidden))" \
+  -c 'qa!'
+# 预期：number=true  tabstop=2  hidden=true
+
+# 验证拆分模块也能加载
+nvim --headless -u lua/init.lua \
+  -c "luafile lua/config/options.lua" \
+  -c "luafile lua/config/keymaps.lua" \
+  -c 'qa!'
+# 预期：退出码 0
+```
+
+做完所有练习后，进入 [第04章 LazyVim 简介与安装](../04-lazyvim-intro/)。
