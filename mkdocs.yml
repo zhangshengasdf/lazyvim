@@ -41,8 +41,6 @@ plugins:
       lang:
         - zh
         - en
-  - tags:
-      tags_file: tags.md
 
 exclude_docs: |
   lua/
