@@ -47,7 +47,7 @@ nav:
   - 首页: index.md
   - 速查表: cheatsheet.md
   - 章节导航: chapters/
-  
+
 extra:
   social:
     - icon: fontawesome/brands/github
