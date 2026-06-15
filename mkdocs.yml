@@ -1,72 +1,75 @@
-site_name: LazyVim 入门教程
-site_description: LazyVim 入门教程（Neovim 配置从入门到精通）
-site_url: https://zhangshengasdf.github.io/lazyvim/
-repo_url: https://github.com/zhangshengasdf/lazyvim
-repo_name: zhangshengasdf/lazyvim
-edit_uri: edit/master/
-
-exclude_docs: |
-  .omo/
-  .ruff_cache/
-  site/
-  *.pyc
-  __pycache__/
+site_name: LazyVim 教程
+site_description: LazyVim 完整中文教程
+site_author: zhangshengasdf
 
 theme:
   name: material
   language: zh
-  features:
-    - navigation.footer
-    - navigation.tracking
-    - search.suggest
-    - search.highlight
   palette:
     - scheme: default
-      primary: blue
+      primary: teal
+      accent: teal
       toggle:
         icon: material/brightness-7
-        name: 切换暗色模式
+        name: Switch to dark mode
     - scheme: slate
-      primary: blue
+      primary: teal
+      accent: teal
       toggle:
         icon: material/brightness-4
-        name: 切换亮色模式
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - search.suggest
+    - search.highlight
+    - search.share
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - md_in_html
 
 plugins:
   - search:
-      lang: zh
-      jieba:
-        enable: true
-        dictionary_path: /usr/share/jieba
+      lang:
+        - zh
+        - en
+  - tags:
+      tags_file: tags.md
 
-markdown_extensions:
-  - admonition
-  - codehilite
-  - toc:
-      permalink: true
-  - pymdownx.superfences
-  - pymdownx.tabbed:
-      alternate_style: true
+exclude_docs: |
+  lua/
+  exercises/
 
 nav:
   - 首页: README.md
-  - 第01章 · 模态编辑: 01-modal-editing/README.md
-  - 第02章 · 编辑操作: 02-editing-ops/README.md
-  - 第03章 · Neovim 基础: 03-neovim-basics/README.md
-  - 第04章 · LazyVim 介绍: 04-lazyvim-intro/README.md
-  - 第05章 · 配置架构: 05-config-architecture/README.md
-  - 第06章 · LazyVim: 06-lazy-nvim/README.md
-  - 第07章 · Leader 键: 07-leader-keys/README.md
-  - 第08章 · which-key: 08-which-key/README.md
-  - 第09章 · Telescope: 09-telescope/README.md
-  - 第10章 · Neo-tree: 10-neo-tree/README.md
-  - 第11章 · Treesitter: 11-treesitter/README.md
-  - 第12章 · LSP + Mason: 12-lsp-mason/README.md
-  - 第13章 · 代码补全: 13-completion/README.md
-  - 第14章 · 格式化: 14-formatting/README.md
-  - 第15章 · Git 集成: 15-git/README.md
-  - 第16章 · DAP: 16-dap/README.md
-  - 第17章 · 插件模式: 17-plugin-patterns/README.md
-  - 第18章 · 自定义快捷键: 18-custom-keymaps/README.md
-  - 第19章 · Extras: 19-extras/README.md
-  - 第20章 · 性能优化: 20-performance/README.md
+  - 01-模态编辑: 01-modal-editing/README.md
+  - 02-编辑操作: 02-editing-ops/README.md
+  - 03-Neovim基础: 03-neovim-basics/README.md
+  - 04-LazyVim入门: 04-lazyvim-intro/README.md
+  - 05-配置架构: 05-config-architecture/README.md
+  - 06-Lazy.nvim: 06-lazy-nvim/README.md
+  - 07-Leader按键: 07-leader-keys/README.md
+  - 08-Which-Key: 08-which-key/README.md
+  - 09-Telescope: 09-telescope/README.md
+  - 10-Neo-tree: 10-neo-tree/README.md
+  - 11-Treesitter: 11-treesitter/README.md
+  - 12-LSP与Mason: 12-lsp-mason/README.md
+  - 13-自动补全: 13-completion/README.md
+  - 14-代码格式化: 14-formatting/README.md
+  - 15-Git集成: 15-git/README.md
+  - 16-调试(DAP): 16-dap/README.md
+  - 17-插件模式: 17-plugin-patterns/README.md
+  - 18-自定义按键: 18-custom-keymaps/README.md
+  - 19-扩展功能: 19-extras/README.md
+  - 20-性能优化: 20-performance/README.md
+
+repo_url: https://github.com/zhangshengasdf/lazyvim
+repo_name: zhangshengasdf/lazyvim
