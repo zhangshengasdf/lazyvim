@@ -1,0 +1,58 @@
+site_name: LazyVim 入门教程
+site_description: LazyVim 入门教程（Neovim 配置从入门到精通）
+site_author: zhangshengasdf
+site_url: https://zhangshengasdf.github.io/lazyvim/
+
+# Repository
+repo_name: zhangshengasdf/lazyvim
+repo_url: https://github.com/zhangshengasdf/lazyvim
+
+# Copyright
+copyright: Copyright &copy; 2025 zhangshengasdf
+
+theme:
+  name: material
+  language: zh
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - content.code.copy
+    - content.action.edit
+    - toc.integrate
+  palette:
+    - scheme: slate
+
+plugins:
+  - search:
+      lang: zh
+      jieba:
+        enable: true
+        dictionary_path: /usr/share/jieba
+
+markdown_extensions:
+  - pymdownx:
+      extensions:
+        - pymdownx.highlight
+        - pymdownx.superfences
+        - pymdownx.tabbed
+        - pymdownx.emoji
+        - pymdownx.tasklist:
+            custom_checkbox: true
+
+nav:
+  - 首页: index.md
+  - 速查表: cheatsheet.md
+  - 章节导航: chapters/
+  
+extra:
+  social:
+    - icon: fontawesome/brands/github
+    link: https://github.com/zhangshengasdf/lazyvim
+
+exclude_docs: |
+  lua/
+  exercises/

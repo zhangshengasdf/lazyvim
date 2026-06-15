@@ -1,0 +1,9 @@
+# MkDocs build output
+site/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
